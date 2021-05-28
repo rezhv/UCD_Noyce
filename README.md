@@ -20,7 +20,7 @@ git clone  https://github.com/rezhv/UCD_Noyce.git
 ```
 Here is a list of possible arguments to pass to the trainer:
 ```bash
-python3 /content/UCD_Noyce/Noyce/train_classifier.py -h 
+python3 ./UCD_Noyce/Noyce/train_classifier.py -h 
 usage: train_classifier.py [-h] [-e EPOCHS] [-b BATCH_SIZE] [-l LOGGING_STEPS] 
 [-lr LEARNING_RATE] [-v] [-ds DATASET] [-tl TOKENIZATIONLENGTH] [-m MODEL] [-s]
 
