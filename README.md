@@ -8,7 +8,7 @@ We will be using NLP techniques with deep learning including fine tuning transfo
 
 ## methodology 
 You can run the train the classifier through the command line. 
-First, CLone the repository:
+First, Clone the repository:
 ```bash
 git clone  https://github.com/rezhv/UCD_Noyce.git
 ```
@@ -21,4 +21,8 @@ optional arguments:
   -b BATCH_SIZE, --batch_size BATCH_SIZE Batch Size
   -l LOGGING_STEPS, --logging_steps LOGGING_STEPS Number of Steps to Run Evaluation
   -r LEARNING_RATE, --learning_rate LEARNING_RATE Value of the Learning Rate
+```
+Run the training script:
+```bash
+!python3 ./UCD_Noyce/Noyce/train_classifier.py
 ```
