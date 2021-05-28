@@ -15,14 +15,21 @@ git clone  https://github.com/rezhv/UCD_Noyce.git
 Here is a list of possible arguments to pass to the trainer:
 ```bash
 python3 /content/UCD_Noyce/Noyce/train_classifier.py -h 
+usage: train_classifier.py [-h] [-e EPOCHS] [-b BATCH_SIZE] [-l LOGGING_STEPS] [-lr LEARNING_RATE] [-v] [-ds DATASET] [-tl TOKENIZATIONLENGTH] [-m MODEL] [-s]
+
 optional arguments:
-  -h, --help           
+  -h, --help show this help message and exit
   -e EPOCHS, --epochs EPOCHS Number of Training Epochs
   -b BATCH_SIZE, --batch_size BATCH_SIZE Batch Size
-  -l LOGGING_STEPS, --logging_steps LOGGING_STEPS Number of Steps to Run Evaluation
-  -r LEARNING_RATE, --learning_rate LEARNING_RATE Value of the Learning Rate
+  -l LOGGING_STEPS, --logging_steps LOGGING_STEPS  Number of Steps to Run Evaluation
+  -lr LEARNING_RATE, --learning_rate LEARNING_RATE Value of Learning Rate
+  -v, --verbose         
+  -ds DATASET, --dataset DATASET Path/Name of the Dataset to Train On
+  -tl TOKENIZATIONLENGTH, --tokenizationlength TOKENIZATIONLENGTH Tokenization Max Length
+  -m MODEL, --model MODEL  Name of the model: bert, xlmr, roberta
+  -s, --scheduler Use Learning Rate Scheduler
 ```
 Run the training script:
 ```bash
-!python3 ./UCD_Noyce/Noyce/train_classifier.py
+python3 ./UCD_Noyce/Noyce/train_classifier.py
 ```
