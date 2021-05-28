@@ -4,8 +4,8 @@ from utils.normalizer import normalize
 
 def load_pol_data():
   
-  df = pd.read_csv("./Noyce/data/political_text/political_train.csv", encoding= 'unicode_escape')
-  df_test = pd.read_csv("./Noyce/data/political_text/political_test.csv", encoding= 'unicode_escape')
+  df = pd.read_csv("./UCD_Noyce/Noyce/data/political_text/political_train.csv", encoding= 'unicode_escape')
+  df_test = pd.read_csv("./UCD_Noyce/Noyce/data/political_text/political_test.csv", encoding= 'unicode_escape')
   df['text'] = df['text'].apply(normalize)
   df_test['text'] = df_test['text'].apply(normalize)
   return df['text'].tolist(), df['class_id'].tolist(), df_test['text'].tolist(), df_test['class_id'].tolist()
