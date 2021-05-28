@@ -16,13 +16,9 @@ Here is a list of possible arguments to pass to the trainer
 ```bash
 python3 /content/UCD_Noyce/Noyce/train_classifier.py -h 
 optional arguments:
-  -h, --help            show this help message and exit
-  -e EPOCHS, --epochs EPOCHS
-                        Number of Training Epochs
-  -b BATCH_SIZE, --batch_size BATCH_SIZE
-                        Batch Size
-  -l LOGGING_STEPS, --logging_steps LOGGING_STEPS
-                        Number of Steps to Run Evaluation
-  -r LEARNING_RATE, --learning_rate LEARNING_RATE
-                        Value of Learning Rate
+  -h, --help           
+  -e EPOCHS, --epochs EPOCHS Number of Training Epochs
+  -b BATCH_SIZE, --batch_size BATCH_SIZE Batch Size
+  -l LOGGING_STEPS, --logging_steps LOGGING_STEPS Number of Steps to Run Evaluation
+  -r LEARNING_RATE, --learning_rate LEARNING_RATE Value of the Learning Rate
 ```
