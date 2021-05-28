@@ -13,8 +13,10 @@ from trainer import Custome_Trainer
 
 
 def prepare_trainer(args):
+
   device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-  if (device == "cpu"):
+
+  if (not torch.cuda.is_available()):
     print("WARNING: TRAINING ON CPU. THIS WILL BE SLOW.")
   if (not args.verbose):
     transformers.logging.set_verbosity_error()
