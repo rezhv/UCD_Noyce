@@ -43,6 +43,8 @@ def prepare_trainer(args):
                             eval_dataset=test_set,
                             compute_metrics=compute_metrics)
 
+  trainer.remove_callback(transformers.PrinterCallback)
+
   print(args.learning_rate)
 
   return trainer
