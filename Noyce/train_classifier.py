@@ -33,6 +33,7 @@ def prepare_trainer(args):
                                         evaluation_strategy = 'steps',
                                         eval_steps= args.logging_steps,
                                         per_device_eval_batch_size=args.batch_size,
+                                        logging_first_step = True,
                                         )
 
   trainer = Custome_Trainer(model=model,
