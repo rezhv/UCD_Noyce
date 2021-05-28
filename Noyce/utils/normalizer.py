@@ -19,15 +19,15 @@ def remove_username(text):
   except:
     return text
 
-def normalize(text, remove_username = True, remove_hashtag= True, remove_URL = True):
+def normalize(text, removeusername = True, removehashtag= True, removeURL = True):
   result = text
-  if remove_username:
+  if removeusername:
     result = remove_username(result)
   
-  if remove_hashtag:
+  if removehashtag:
     result = remove_hashtag(result)
   
-  if remove_URL:
+  if removeURL:
     result = remove_URL(result)
   
   return result
