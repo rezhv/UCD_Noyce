@@ -12,7 +12,7 @@ First, CLone the repository:
 ```bash
 git clone  https://github.com/rezhv/UCD_Noyce.git
 ```
-Here is a list of possible arguments to pass to the trainer
+Here is a list of possible arguments to pass to the trainer:
 ```bash
 python3 /content/UCD_Noyce/Noyce/train_classifier.py -h 
 optional arguments:
