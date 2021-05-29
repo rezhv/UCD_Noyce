@@ -11,7 +11,7 @@ class Dataset(torch.utils.data.Dataset):
     def __getitem__(self, idx):
         return {'input_ids': self.encodings['input_ids'][idx],
                 'labels': torch.tensor(self.labels[idx]),
-                'text': self.text[idx]}
+               }
 
     def __len__(self):
         return len(self.labels)

@@ -36,8 +36,8 @@ def prepare_trainer(args):
                                 max_length=args.tokenizationlength,  return_tensors='pt')
     test_encodings = tokenizer(x_test, truncation=True, padding=True,
                                max_length=args.tokenizationlength,  return_tensors='pt')
-    train_set = Dataset(train_encodings, y_train, x_train)
-    test_set = Dataset(test_encodings, y_test, x_test)
+    train_set = Dataset(train_encodings, y_train)
+    test_set = Dataset(test_encodings, y_test)
 
     optimizer = AdamW(model.parameters(), lr=args.learning_rate)
 
@@ -53,6 +53,7 @@ def prepare_trainer(args):
                                                 )
 
     trainer = Custome_Trainer(model=model,
+                              tokenizer=tokenizer,
                               args=train_args,
                               train_dataset=train_set,
                               optimizers=(optimizer, None),

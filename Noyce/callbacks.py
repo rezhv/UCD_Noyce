@@ -20,7 +20,7 @@ class export_predictions_callback(TrainerCallback):
         predictions_df = pd.DataFrame(data={"text": x, "prediction" : y})
         predictions_df.to_csv(path)
 
-    def on_train_end(self, args, state, control, model = None, eval_dataloader = None, logs=None, **kwargs):
+    def on_train_end(self, args, state, control, model = None, tokenizer= None, eval_dataloader = None, logs=None, **kwargs):
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         model.eval()
         text = []
@@ -28,7 +28,7 @@ class export_predictions_callback(TrainerCallback):
         with torch.no_grad():
             for batch in eval_dataloader:
                 outputs = model(batch['input_ids'].to(device)).logits
-                text = text + batch['text']
+                text = text + tokenizer.batch_decode(batch['input_ids'],skip_special_tokens=True)
                 predictions = predictions + torch.argmax(outputs, axis=1).cpu().numpy().tolist()
 
         self.export_predictions(text,predictions)
