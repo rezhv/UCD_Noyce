@@ -38,6 +38,7 @@ def prepare_trainer(args):
                                max_length=args.tokenizationlength,  return_tensors='pt')
     train_set = Dataset(train_encodings, y_train, x_train)
     test_set = Dataset(test_encodings, y_test, x_test)
+    print(test_set[0:10])
     optimizer = AdamW(model.parameters(), lr=args.learning_rate)
 
     train_args = transformers.TrainingArguments(logging_steps=args.logging_steps, output_dir="./",
