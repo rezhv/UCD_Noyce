@@ -1,6 +1,7 @@
 import argparse
 from trainer import prepare_trainer
 
+
 if __name__ == '__main__':
 
   parser = argparse.ArgumentParser()
@@ -21,7 +22,9 @@ if __name__ == '__main__':
 
   print("Training Started for", args.epochs, "epochs on", args.dataset)
   result = trainer.train()
-  print(result)
+
+
+  
       
 
 

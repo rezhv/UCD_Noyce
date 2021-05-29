@@ -2,7 +2,7 @@ import torch
 import transformers
 from transformers import AdamW, Trainer
 
-from callbacks import compute_metrics
+from callbacks import compute_metrics, export_predictions_callback
 from dataset import Dataset
 from load_data import load_data
 from models import Model
@@ -36,8 +36,8 @@ def prepare_trainer(args):
                                 max_length=args.tokenizationlength,  return_tensors='pt')
     test_encodings = tokenizer(x_test, truncation=True, padding=True,
                                max_length=args.tokenizationlength,  return_tensors='pt')
-    train_set = Dataset(train_encodings, y_train)
-    test_set = Dataset(test_encodings, y_test)
+    train_set = Dataset(train_encodings, y_train, x_train)
+    test_set = Dataset(test_encodings, y_test, x_test)
     optimizer = AdamW(model.parameters(), lr=args.learning_rate)
 
     train_args = transformers.TrainingArguments(logging_steps=args.logging_steps, output_dir="./",
@@ -58,5 +58,7 @@ def prepare_trainer(args):
                               compute_metrics=compute_metrics)
 
     trainer.remove_callback(transformers.PrinterCallback)
+    if args.output_predictions:
+        trainer.add_callback(export_predictions_callback)
 
     return trainer
