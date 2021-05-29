@@ -59,7 +59,7 @@ def prepare_trainer(args):
                               optimizers=(optimizer, None),
                               eval_dataset=test_set,
                               compute_metrics=compute_metrics,
-                              data_collator = lambda x : x)
+                              )
 
     trainer.remove_callback(transformers.PrinterCallback)
     if args.output_predictions:
