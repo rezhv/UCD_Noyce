@@ -48,6 +48,7 @@ def prepare_trainer(args):
                                                 eval_steps=args.logging_steps,
                                                 per_device_eval_batch_size=args.batch_size,
                                                 logging_first_step=True,
+                                                remove_unused_columns = False
                                                 )
 
     trainer = Custome_Trainer(model=model,
