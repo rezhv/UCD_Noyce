@@ -38,7 +38,7 @@ def prepare_trainer(args):
                                max_length=args.tokenizationlength,  return_tensors='pt')
     train_set = Dataset(train_encodings, y_train, x_train)
     test_set = Dataset(test_encodings, y_test, x_test)
-    print(test_set[0:10])
+
     optimizer = AdamW(model.parameters(), lr=args.learning_rate)
 
     train_args = transformers.TrainingArguments(logging_steps=args.logging_steps, output_dir="./",
@@ -49,7 +49,7 @@ def prepare_trainer(args):
                                                 eval_steps=args.logging_steps,
                                                 per_device_eval_batch_size=args.batch_size,
                                                 logging_first_step=True,
-                                                remove_unused_columns = False
+                                                remove_unused_columns = False,
                                                 )
 
     trainer = Custome_Trainer(model=model,
@@ -57,7 +57,8 @@ def prepare_trainer(args):
                               train_dataset=train_set,
                               optimizers=(optimizer, None),
                               eval_dataset=test_set,
-                              compute_metrics=compute_metrics)
+                              compute_metrics=compute_metrics,
+                              data_collator = lambda x : x)
 
     trainer.remove_callback(transformers.PrinterCallback)
     if args.output_predictions:

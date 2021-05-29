@@ -27,7 +27,6 @@ class export_predictions_callback(TrainerCallback):
         predictions = []
         with torch.no_grad():
             for batch in eval_dataloader:
-                print(batch)
                 outputs = model(batch['input_ids'].to(device)).logits
                 text = text + batch['text']
                 predictions = predictions + torch.argmax(outputs, axis=1).cpu().numpy().tolist()
