@@ -21,12 +21,13 @@ class export_predictions_callback(TrainerCallback):
         predictions_df.to_csv(path)
 
     def on_train_end(self, args, state, control, model = None, eval_dataloader = None, logs=None, **kwargs):
+        device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         model.eval()
         text = []
         predictions = []
         with torch.no_grad():
             for batch in eval_dataloader:
-                outputs = model(batch['input_ids']).logits
+                outputs = model(batch['input_ids'].to(device)).logits
                 text = text + batch['text']
                 predictions = predictions + torch.argmax(outputs, axis=1).cpu().numpy().tolist()
 
