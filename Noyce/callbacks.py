@@ -20,12 +20,12 @@ class export_predictions_callback(TrainerCallback):
         predictions_df = pd.DataFrame(data={"text": x, "prediction" : y})
         predictions_df.to_csv(path)
 
-    def on_train_end(self, args, state, control, model = None, logs=None, **kwargs):
+    def on_train_end(self, args, state, control, model = None, eval_dataloader = None, logs=None, **kwargs):
         model.eval()
         text = []
         predictions = []
         with torch.no_grad():
-            for batch in self.eval_dataloader:
+            for batch in eval_dataloader:
                 outputs = model(batch['input_ids']).logits
                 text = text + batch['text']
                 predictions = predictions + torch.argmax(outputs, axis=1).cpu().numpy().tolist()
