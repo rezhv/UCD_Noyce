@@ -33,4 +33,4 @@ class export_predictions_callback(TrainerCallback):
                 predictions = predictions + torch.argmax(outputs, axis=1).cpu().numpy().tolist()
                 labels = labels + batch['labels'].cpu().numpy().tolist()
 
-        self.export_predictions(text,predictions)
+        self.export_predictions(text,labels,predictions)
