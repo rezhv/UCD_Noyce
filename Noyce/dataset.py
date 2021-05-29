@@ -4,7 +4,6 @@ import torch
 class Dataset(torch.utils.data.Dataset):
 
     def __init__(self, encodings, labels):
-        self.text = text
         self.encodings = encodings
         self.labels = labels
 
