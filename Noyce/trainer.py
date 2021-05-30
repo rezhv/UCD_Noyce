@@ -7,15 +7,20 @@ from dataset import Dataset
 from load_data import load_data
 from models import Model
 from noyce_tokenizer import Tokenizer
+from utils.class_weights import compute_class_weights
 
 
 class Custome_Trainer(Trainer):
+    def __init__(self, class_weights = None) :
+        super(Custome_Trainer, self).__init__()
+        self.class_weights = class_weights
+
     def compute_loss(self, model, inputs, return_outputs=False):
         input_ids = inputs['input_ids'].to(self.args.device)
         labels = inputs['labels'].to(self.args.device)
         outputs = self.model(input_ids)
         logits = outputs.logits
-        loss_fct = torch.nn.CrossEntropyLoss()
+        loss_fct = torch.nn.CrossEntropyLoss(weight= self.class_weights)
         loss = loss_fct(logits, labels)
         return (loss, {"logits": outputs.logits}) if return_outputs else loss
 
@@ -30,6 +35,8 @@ def prepare_trainer(args):
         transformers.logging.set_verbosity_error()
 
     x_train, y_train, x_test, y_test = load_data(args.dataset)
+    class_weights = compute_class_weights(y_train)
+
     tokenizer = Tokenizer(args.model)
     model = Model(args.model,num_labels=len(set(y_train))).to(device)
 
@@ -60,6 +67,7 @@ def prepare_trainer(args):
                               optimizers=(optimizer, None),
                               eval_dataset=test_set,
                               compute_metrics=compute_metrics,
+                              class_weights= class_weights
                               )
 
     trainer.remove_callback(transformers.PrinterCallback)
