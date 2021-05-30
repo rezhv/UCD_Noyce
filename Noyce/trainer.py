@@ -17,6 +17,7 @@ class Custome_Trainer(Trainer):
         logits = outputs.logits
         loss_fct = torch.nn.CrossEntropyLoss()
         loss = loss_fct(logits, labels)
+        print(loss)
         return (loss, {"logits": outputs.logits}) if return_outputs else loss
 
 
