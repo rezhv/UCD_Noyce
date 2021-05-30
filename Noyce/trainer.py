@@ -32,7 +32,8 @@ def prepare_trainer(args):
 
     x_train, y_train, x_test, y_test = load_data(args.dataset)
     tokenizer = Tokenizer(args.model)
-    model = Model(args.model).to(device)
+    model = Model(args.model,num_labels=len(set(y_train))).to(device)
+
     train_encodings = tokenizer(x_train, truncation=True, padding=True,
                                 max_length=args.tokenizationlength,  return_tensors='pt')
     test_encodings = tokenizer(x_test, truncation=True, padding=True,
