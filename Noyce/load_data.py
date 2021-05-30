@@ -38,7 +38,6 @@ def load_disagreement_data():
     df['class_id'] = df['class'].map(class_id_dict)
     df = df.dropna()
 
-    print(df[df['class_id'] == 3])
     
     df_train ,df_test = train_test_split(df, random_state=1, test_size=0.1, stratify = df['class_id'])
 
