@@ -10,7 +10,7 @@ def compute_metrics(p):
     b = p.label_ids
     acc = accuracy_score(a, b)
     return {'Accuracy': acc, 'Macro F1': f1_score(a, b, average='macro'),
-            'Percision': precision_score(a, b), 'Recall': recall_score(a, b)}
+            'Percision': precision_score(a, b, average='macro'), 'Recall': recall_score(a, b, average='macro')}
 
 
 
