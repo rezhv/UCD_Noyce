@@ -12,7 +12,7 @@ from utils.class_weights import compute_class_weights
 
 class Custome_Trainer(Trainer):
     def __init__(self, class_weights = None) :
-        super(Custome_Trainer, self).__init__()
+        super().__init__(self)
         self.class_weights = class_weights
 
     def compute_loss(self, model, inputs, return_outputs=False):
