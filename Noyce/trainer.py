@@ -20,7 +20,7 @@ class Custome_Trainer(Trainer):
         labels = inputs['labels'].to(self.args.device)
         outputs = self.model(input_ids)
         logits = outputs.logits
-        loss_fct = torch.nn.CrossEntropyLoss(weight= self.class_weights)
+        loss_fct = torch.nn.CrossEntropyLoss(weight= self.class_weights.to(self.args.device))
         loss = loss_fct(logits, labels)
         return (loss, {"logits": outputs.logits}) if return_outputs else loss
 
