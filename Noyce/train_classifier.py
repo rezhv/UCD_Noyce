@@ -10,7 +10,7 @@ if __name__ == '__main__':
   parser.add_argument("-l", "--logging_steps", help="Number of Steps to Run Evaluation", type=int, default=50)
   parser.add_argument("-lr", "--learning_rate", help="Value of Learning Rate", type=float, default=0.00002)
   parser.add_argument("-v", "--verbose", action="store_true", help="Whether or not to print warnings, states.", default=False)
-  parser.add_argument("-ds", "--dataset", help="Path/Name of the Dataset to Train On", default="Political Dataset")
+  parser.add_argument("-ds", "--dataset", help="Path/Name of the Dataset to Train On", default= "political_text")
   parser.add_argument("-tl", "--tokenizationlength", help="Tokenization Max Length", default=128)
   parser.add_argument("-m", "--model", help="Name of the model: bert, xlmr, roberta", default="bert")
   parser.add_argument("-s", "--scheduler", action="store_true", help="Use Learning Rate Scheduler", default=False)
