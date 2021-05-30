@@ -11,8 +11,8 @@ from utils.class_weights import compute_class_weights
 
 
 class Custome_Trainer(Trainer):
-    def __init__(self, class_weights = None) :
-        super().__init__()
+    def __init__(self, class_weights = None, **kwargs) :
+        super().__init__(**kwargs)
         self.class_weights = class_weights
 
     def compute_loss(self, model, inputs, return_outputs=False):
