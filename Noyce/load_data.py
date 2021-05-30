@@ -16,12 +16,12 @@ def load_pol_data():
 def load_disagreement_data():
     class_id_dict = {
         "SE" : 0,
-        "AC" : 1,
-        "AE" : 2,
-        "DE" : 3,
-        "DC" : 4,
-        "DC/AC" : 4,
-        "DE/DC" : 4,
+        "AC" : 0,
+        "AE" : 0,
+        "DE" : 1,
+        "DC" : 1,
+        "DC/AC" : 1,
+        "DE/DC" : 1,
 
     }
 
