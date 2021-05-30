@@ -29,7 +29,7 @@ def prepare_trainer(args):
     if (not args.verbose):
         transformers.logging.set_verbosity_error()
 
-    x_train, y_train, x_test, y_test = load_data()
+    x_train, y_train, x_test, y_test = load_data(args.dataset)
     tokenizer = Tokenizer(args.model)
     model = Model(args.model).to(device)
     train_encodings = tokenizer(x_train, truncation=True, padding=True,

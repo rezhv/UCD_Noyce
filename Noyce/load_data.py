@@ -20,6 +20,9 @@ def load_disagreement_data():
         "AE" : 2,
         "DE" : 3,
         "DC" : 4,
+        "DC/AC" : 5,
+        "DE/DC" : 6,
+
     }
 
     YT_df = pd.read_csv(
@@ -32,18 +35,21 @@ def load_disagreement_data():
         "./UCD_Noyce/Noyce/data/disagreement/Reddit_Disagreement_Comments.csv", encoding='unicode_escape')[['text','class']]
 
     df = pd.concat([YT_df, FB_df, Reddit_df])
+    df['class_id'] = df['class'].map(class_id_dict)
     
-    df_train ,df_test = train_test_split(df, random_state=1, test_size=0.1)
+    df_train ,df_test = train_test_split(df, random_state=1, test_size=0.1, stratify = df['class_id'])
 
     
-    df_train['text'] = df_train['text'].apply(normalize)
-    df_test['text'] = df_test['text'].apply(normalize)
+    df_train.loc[:,'text'] = df_train.text.apply(normalize)
+    df_test.loc[:,'text'] = df_test.text.apply(normalize)
     return df_train['text'].tolist(), df_train['class_id'].tolist(), df_test['text'].tolist(), df_test['class_id'].tolist()
 
 
 def load_data(dset_name='political_text'):
     if dset_name == 'political_text':
         return load_pol_data()
+    elif dset_name == 'disagreement':
+        return load_disagreement_data()
     else:
         raise NameError(
             'Dataset not known. Available Datasets: political_text')
