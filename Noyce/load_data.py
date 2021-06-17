@@ -13,6 +13,17 @@ def load_pol_data():
     df_test['text'] = df_test['text'].apply(normalize)
     return df['text'].tolist(), df['class_id'].tolist(), df_test['text'].tolist(), df_test['class_id'].tolist()
 
+def load_ideology_data():
+
+    df = pd.read_csv(
+        "./UCD_Noyce/Noyce/data/ideology/facebook.csv", encoding='unicode_escape')
+
+    df['text'] = df['text'].apply(normalize)
+
+    df ,df_test = train_test_split(df, random_state=1, test_size=0.1, stratify = df['class_id'])
+
+    return df['text'].tolist(), df['class_id'].tolist(), df_test['text'].tolist(), df_test['class_id'].tolist()
+
 def load_disagreement_data():
     class_id_dict = {
         "SE" : 0,
@@ -53,6 +64,8 @@ def load_data(dset_name='political_text'):
         return load_pol_data()
     elif dset_name == 'disagreement':
         return load_disagreement_data()
+    elif dset_name == 'ideology':
+        return load_ideology_data()
     else:
         raise NameError(
             'Dataset not known. Available Datasets: political_text')
