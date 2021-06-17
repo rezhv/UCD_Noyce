@@ -19,6 +19,7 @@ def load_ideology_data():
         "./UCD_Noyce/Noyce/data/ideology/facebook.csv", encoding='unicode_escape')
 
     df['text'] = df['text'].apply(normalize)
+    df = df.dropna()
 
     df ,df_test = train_test_split(df, random_state=1, test_size=0.1, stratify = df['class_id'])
 
@@ -71,4 +72,4 @@ def load_data(dset_name='political_text'):
             'Dataset not known. Available Datasets: political_text')
 
 if __name__ == '__main__':
-    load_disagreement_data()
+    print(load_data('ideology')[2])
