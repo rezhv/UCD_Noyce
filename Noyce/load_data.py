@@ -21,7 +21,10 @@ def load_ideology_data():
     df['text'] = df['text'].apply(normalize)
     df = df.dropna()
 
-    df ,df_test = train_test_split(df, random_state=1, test_size=0.1, stratify = df['class_id'])
+    df_test =  pd.concat([df[(df['website'] == 'colorlines')], df[df['website'] == 'mrc' ]]) 
+    
+    df = df[(df['website'] != 'colorlines')]
+    df = df[(df['website'] != 'mrc')]
 
     return df['text'].tolist(), df['class_id'].tolist(), df_test['text'].tolist(), df_test['class_id'].tolist()
 
