@@ -16,8 +16,8 @@ def compute_metrics(p):
 
 class export_predictions_callback(TrainerCallback):
 
-    def export_predictions(self, x,y, predictions, path = "./predictions.csv"):
-        predictions_df = pd.DataFrame(data={"text": x, "prediction" : predictions, "labels": y})
+    def export_predictions(self, x,y, predictions,confidence, path = "./predictions.csv"):
+        predictions_df = pd.DataFrame(data={"text": x, "prediction" : predictions, "labels": y, "confidence":confidence})
         predictions_df.to_csv(path)
 
     def on_train_end(self, args, state, control, model = None, tokenizer= None, eval_dataloader = None, logs=None, **kwargs):
@@ -26,11 +26,13 @@ class export_predictions_callback(TrainerCallback):
         text = []
         predictions = []
         labels = []
+        confidence = []
         with torch.no_grad():
             for batch in eval_dataloader:
                 outputs = model(batch['input_ids'].to(device)).logits
                 text = text + tokenizer.batch_decode(batch['input_ids'],skip_special_tokens=True)
                 predictions = predictions + torch.argmax(outputs, axis=1).cpu().numpy().tolist()
                 labels = labels + batch['labels'].cpu().numpy().tolist()
+                confidence = outputs.cpu().numpy().tolist()
 
-        self.export_predictions(text,labels,predictions)
+        self.export_predictions(text,labels,predictions, confidence)
