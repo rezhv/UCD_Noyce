@@ -51,7 +51,7 @@ def prepare_trainer(args):
 
     train_args = transformers.TrainingArguments(logging_steps=args.logging_steps, output_dir="./",
                                                 do_train=True,
-                                                save_strategy = 'no',
+                                                save_strategy = 'epoch',
                                                 gradient_accumulation_steps = 4,
                                                 per_device_train_batch_size=args.batch_size,
                                                 num_train_epochs=args.epochs,
@@ -60,6 +60,7 @@ def prepare_trainer(args):
                                                 per_device_eval_batch_size=args.batch_size,
                                                 logging_first_step=True,
                                                 remove_unused_columns = False,
+                                                save_total_limit = 1
                                                 )
 
     trainer = Custome_Trainer(model=model,
