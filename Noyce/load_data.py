@@ -65,7 +65,7 @@ def load_disagreement_data():
 
     df = pd.concat([YT_df, FB_df, Reddit_df])
     df['class_id'] = df['class'].map(class_id_dict)
-    df = df.dropna(
+    df = df.dropna()
     df_train ,df_test = train_test_split(df, random_state=1, test_size=0.1, stratify = df['class_id'])
     df_train.loc[:,'text'] = df_train.text.apply(normalize)
     df_test.loc[:,'text'] = df_test.text.apply(normalize)
