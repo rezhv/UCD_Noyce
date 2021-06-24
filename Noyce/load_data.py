@@ -22,7 +22,7 @@ def load_ideology_data(website, separate_websites = False, test_set = True):
     test_size = 0.1
     if (website == 'facebook'):
         path = FACEBOOK_POSTS
-        test_size = 0.5
+        test_size = 0.05
         df = pd.read_csv(path, encoding='unicode_escape')
     elif (website == 'youtube'):
         path = YOUTUBE_POSTS
