@@ -7,8 +7,8 @@ def Model(name='bert', path='', num_labels = 2):
               "roberta": "roberta-base",
               "xlmr": "xlm-roberta-base"}
     if len(path):
-        return AutoModelForSequenceClassification.from_pretrained(path, num_labels= num_labels)
-        
+        return AutoModelForSequenceClassification.from_pretrained(path)
+
     return AutoModelForSequenceClassification.from_pretrained(models[name], num_labels= num_labels)
 
 
