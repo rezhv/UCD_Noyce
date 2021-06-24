@@ -35,6 +35,6 @@ class export_predictions_callback(TrainerCallback):
                 labels = labels + batch['labels'].cpu().numpy().tolist()
                 confidence = confidence + torch.nn.functional.softmax(outputs,dim=1).cpu().numpy().tolist()
 
-        confidence = [ "{:0.2%}".format(v) for v in confidence]
+        confidence = [ ["{:0.2%}".format(x) for x in v] for v in confidence]
 
         self.export_predictions(text,labels,predictions, confidence)
