@@ -52,6 +52,7 @@ def prepare_trainer(args):
     train_args = transformers.TrainingArguments(logging_steps=args.logging_steps, output_dir="./",
                                                 do_train=True,
                                                 save_strategy = 'no',
+                                                gradient_accumulation_steps = 4,
                                                 per_device_train_batch_size=args.batch_size,
                                                 num_train_epochs=args.epochs,
                                                 evaluation_strategy='steps',
