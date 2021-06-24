@@ -22,14 +22,21 @@ def load_ideology_data(website, separate_websites = False):
     test_size = 0.1
     if (website == 'facebook'):
         path = FACEBOOK_POSTS
+        test_size = 0.5
+        df = pd.read_csv(path, encoding='unicode_escape')
     elif (website == 'youtube'):
         path = YOUTUBE_POSTS
+        df = pd.read_csv(path, encoding='unicode_escape')
     elif (website == 'redditcomments'):
         path = REDDIT_COMMENTS
+        df = pd.read_csv(path, encoding='unicode_escape')
         test_size = 0.02
+    elif (website == 'youtube_facebook'):
+        df1 = pd.read_csv(YOUTUBE_POSTS, encoding='unicode_escape')
+        df2 = pd.read_csv(FACEBOOK_POSTS, encoding='unicode_escape')
+        df = pd.concat([df1,df2])
+        test_size = 0.05
 
-
-    df = pd.read_csv(path, encoding='unicode_escape')
 
     df['text'] = df['text'].apply(normalize)
     df = df.dropna()
@@ -86,6 +93,9 @@ def load_data(dset_name='political_text'):
         return load_ideology_data('youtube')
     elif dset_name == 'ideology_redditcomments':
         return load_ideology_data('redditcomments')
+    elif dset_name == 'ideology_facebook_youtube':
+        return load_ideology_data('youtube_facebook')
+
     else:
         raise NameError(
             'Dataset not known. Available Datasets: political_text')
