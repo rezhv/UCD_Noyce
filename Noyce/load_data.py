@@ -94,13 +94,13 @@ def load_data(dset_name='political_text', path = '', test_set = True):
     elif dset_name == 'disagreement':
         return load_disagreement_data()
     elif dset_name == 'ideology_fb':
-        return load_ideology_data('facebook',test_set)
+        return load_ideology_data('facebook',test_set = test_set)
     elif dset_name == 'ideology_youtube':
-        return load_ideology_data('youtube', test_set)
+        return load_ideology_data('youtube', test_set =test_set)
     elif dset_name == 'ideology_redditcomments':
-        return load_ideology_data('redditcomments', test_set)
+        return load_ideology_data('redditcomments', test_set =test_set)
     elif dset_name == 'ideology_facebook_youtube':
-        return load_ideology_data('youtube_facebook', test_set)
+        return load_ideology_data('youtube_facebook', test_set =test_set)
     elif dset_name == 'ideology_custome':
         return load_ideology_data(path, test_set)
 
@@ -109,4 +109,5 @@ def load_data(dset_name='political_text', path = '', test_set = True):
             'Dataset not known. Available Datasets: political_text')
 
 if __name__ == '__main__':
-    print(load_data('ideology')[2])
+    print(len(load_data(dset_name = 'ideology_youtube')[1]),len(load_data(dset_name = 'ideology_youtube')[0]),
+    len(load_data(dset_name = 'ideology_youtube')[2]),len(load_data(dset_name = 'ideology_youtube')[3]))
