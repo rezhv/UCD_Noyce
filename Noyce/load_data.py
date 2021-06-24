@@ -3,6 +3,11 @@ import pandas as pd
 from utils.normalizer import normalize
 from sklearn.model_selection import train_test_split
 
+FACEBOOK_POSTS = "./UCD_Noyce/Noyce/data/ideology/facebook.csv"
+YOUTUBE_POSTS = "./UCD_Noyce/Noyce/data/ideology/youtube.csv"
+REDDIT_COMMENTS = "./UCD_Noyce/Noyce/data/ideology/reddit_comments.csv"
+
+
 def load_pol_data():
 
     df = pd.read_csv(
@@ -13,10 +18,16 @@ def load_pol_data():
     df_test['text'] = df_test['text'].apply(normalize)
     return df['text'].tolist(), df['class_id'].tolist(), df_test['text'].tolist(), df_test['class_id'].tolist()
 
-def load_ideology_data(separate_websites = True):
+def load_ideology_data(website, separate_websites = False):
+    
+    if (website == 'facebook'):
+        path = FACEBOOK_POSTS
+    elif (website == 'youtube'):
+        path = YOUTUBE_POSTS
+    elif (website == 'redditcomments'):
+        path = REDDIT_COMMENTS
 
-    df = pd.read_csv(
-        "./UCD_Noyce/Noyce/data/ideology/facebook.csv", encoding='unicode_escape')
+    df = pd.read_csv(path, encoding='unicode_escape')
 
     df['text'] = df['text'].apply(normalize)
     df = df.dropna()
@@ -54,12 +65,8 @@ def load_disagreement_data():
 
     df = pd.concat([YT_df, FB_df, Reddit_df])
     df['class_id'] = df['class'].map(class_id_dict)
-    df = df.dropna()
-
-    
+    df = df.dropna(
     df_train ,df_test = train_test_split(df, random_state=1, test_size=0.1, stratify = df['class_id'])
-
-    
     df_train.loc[:,'text'] = df_train.text.apply(normalize)
     df_test.loc[:,'text'] = df_test.text.apply(normalize)
 
@@ -71,8 +78,12 @@ def load_data(dset_name='political_text'):
         return load_pol_data()
     elif dset_name == 'disagreement':
         return load_disagreement_data()
-    elif dset_name == 'ideology':
-        return load_ideology_data()
+    elif dset_name == 'ideology_fb':
+        return load_ideology_data('facebook')
+    elif dset_name == 'ideology_youtube':
+        return load_ideology_data('youtube')
+    elif dset_name == 'ideology_redditcomments':
+        return load_ideology_data('redditcomments')
     else:
         raise NameError(
             'Dataset not known. Available Datasets: political_text')
