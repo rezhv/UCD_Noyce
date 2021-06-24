@@ -18,7 +18,7 @@ def load_pol_data():
     df_test['text'] = df_test['text'].apply(normalize)
     return df['text'].tolist(), df['class_id'].tolist(), df_test['text'].tolist(), df_test['class_id'].tolist()
 
-def load_ideology_data(website, separate_websites = False):
+def load_ideology_data(website, separate_websites = False, test_set = True):
     test_size = 0.1
     if (website == 'facebook'):
         path = FACEBOOK_POSTS
@@ -36,6 +36,9 @@ def load_ideology_data(website, separate_websites = False):
         df2 = pd.read_csv(FACEBOOK_POSTS, encoding='unicode_escape')
         df = pd.concat([df1,df2])
         test_size = 0.05
+    else:
+        df = pd.read_csv(website, encoding='unicode_escape')
+
 
 
     df['text'] = df['text'].apply(normalize)
@@ -47,7 +50,10 @@ def load_ideology_data(website, separate_websites = False):
         df = df[(df['website'] != 'mrc')]
 
     else:
-        df ,df_test = train_test_split(df, random_state=1, test_size=test_size, stratify = df['class_id'])
+        if test_set:
+            df ,df_test = train_test_split(df, random_state=1, test_size=test_size, stratify = df['class_id'])
+        else:
+            return  df['text'].tolist(), df['class_id'].tolist(), None, None
 
     return df['text'].tolist(), df['class_id'].tolist(), df_test['text'].tolist(), df_test['class_id'].tolist()
 
@@ -82,19 +88,21 @@ def load_disagreement_data():
     return df_train['text'].tolist(), df_train['class_id'].tolist(), df_test['text'].tolist(), df_test['class_id'].tolist()
 
 
-def load_data(dset_name='political_text'):
+def load_data(dset_name='political_text', path = '', test_set = True):
     if dset_name == 'political_text':
         return load_pol_data()
     elif dset_name == 'disagreement':
         return load_disagreement_data()
     elif dset_name == 'ideology_fb':
-        return load_ideology_data('facebook')
+        return load_ideology_data('facebook',test_set)
     elif dset_name == 'ideology_youtube':
-        return load_ideology_data('youtube')
+        return load_ideology_data('youtube', test_set)
     elif dset_name == 'ideology_redditcomments':
-        return load_ideology_data('redditcomments')
+        return load_ideology_data('redditcomments', test_set)
     elif dset_name == 'ideology_facebook_youtube':
-        return load_ideology_data('youtube_facebook')
+        return load_ideology_data('youtube_facebook', test_set)
+    elif dset_name == 'ideology_custome':
+        return load_ideology_data(path, test_set)
 
     else:
         raise NameError(
