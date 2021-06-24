@@ -19,13 +19,15 @@ def load_pol_data():
     return df['text'].tolist(), df['class_id'].tolist(), df_test['text'].tolist(), df_test['class_id'].tolist()
 
 def load_ideology_data(website, separate_websites = False):
-    
+    test_size = 0.1
     if (website == 'facebook'):
         path = FACEBOOK_POSTS
     elif (website == 'youtube'):
         path = YOUTUBE_POSTS
     elif (website == 'redditcomments'):
         path = REDDIT_COMMENTS
+        test_size = 0.02
+
 
     df = pd.read_csv(path, encoding='unicode_escape')
 
@@ -38,7 +40,7 @@ def load_ideology_data(website, separate_websites = False):
         df = df[(df['website'] != 'mrc')]
 
     else:
-        df ,df_test = train_test_split(df, random_state=1, test_size=0.1, stratify = df['class_id'])
+        df ,df_test = train_test_split(df, random_state=1, test_size=test_size, stratify = df['class_id'])
 
     return df['text'].tolist(), df['class_id'].tolist(), df_test['text'].tolist(), df_test['class_id'].tolist()
 
