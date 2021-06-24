@@ -33,6 +33,6 @@ class export_predictions_callback(TrainerCallback):
                 text = text + tokenizer.batch_decode(batch['input_ids'],skip_special_tokens=True)
                 predictions = predictions + torch.argmax(outputs, axis=1).cpu().numpy().tolist()
                 labels = labels + batch['labels'].cpu().numpy().tolist()
-                confidence = confidence + np.around (torch.nn.functional.softmax(outputs,dim=1).cpu().numpy() , decimals=2).tolist()
+                confidence = confidence + np.around(torch.nn.functional.softmax(outputs,dim=1).cpu().numpy() , decimals=2).tolist()
 
         self.export_predictions(text,labels,predictions, confidence)
