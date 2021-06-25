@@ -35,7 +35,7 @@ def load_ideology_data(website, separate_websites = False, test_set = True):
         df1 = pd.read_csv(YOUTUBE_POSTS, encoding='unicode_escape')
         df2 = pd.read_csv(FACEBOOK_POSTS, encoding='unicode_escape')
         df = pd.concat([df1,df2])
-        test_size = 0.025
+        test_size = 0.020
     else:
         df = pd.read_csv(website, encoding='unicode_escape')
 
