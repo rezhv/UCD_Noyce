@@ -30,7 +30,7 @@ def load_ideology_data(website, separate_websites = False, test_set = True):
     elif (website == 'redditcomments'):
         path = REDDIT_COMMENTS
         df = pd.read_csv(path, encoding='unicode_escape')
-        test_size = 0.02
+        test_size = 0.005
     elif (website == 'youtube_facebook'):
         df1 = pd.read_csv(YOUTUBE_POSTS, encoding='unicode_escape')
         df2 = pd.read_csv(FACEBOOK_POSTS, encoding='unicode_escape')
