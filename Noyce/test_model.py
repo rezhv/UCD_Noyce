@@ -18,7 +18,8 @@ if __name__ == '__main__':
   args = parser.parse_args()
   model = Model(path = args.modelpath).to(device)
   tokenizer = Tokenizer(path = args.modelpath)
-  x, y = load_csv(args.modelpath)
+  x = load_csv(args.modelpath)
+  y = [0 for _ in range(len(x))]
 
   encodings = tokenizer(x, truncation=True, padding=True,
                                 max_length=args.tokenizationlength,  return_tensors='pt')
@@ -26,26 +27,24 @@ if __name__ == '__main__':
   dl = DataLoader(ds, batch_size=32, shuffle=False)
 
 
-  def export_predictions(self, x,y, predictions,confidence, path = "./predictions.csv"):
-    predictions_df = pd.DataFrame(data={"text": x, "prediction" : predictions, "labels": y, "confidence":confidence})
+  def export_predictions(self, x, predictions,confidence, path = "./predictions.csv"):
+    predictions_df = pd.DataFrame(data={"text": x, "prediction" : predictions,"confidence":confidence})
     predictions_df.to_csv(path)
 
   model.eval()
   text = []
   predictions = []
-  labels = []
   confidence = []
   with torch.no_grad():
       for batch in dl:
           outputs = model(batch['input_ids'].to(device)).logits
           text = text + tokenizer.batch_decode(batch['input_ids'],skip_special_tokens=True)
           predictions = predictions + torch.argmax(outputs, axis=1).cpu().numpy().tolist()
-          labels = labels + batch['labels'].cpu().numpy().tolist()
           confidence = confidence + torch.nn.functional.softmax(outputs,dim=1).cpu().numpy().tolist()
 
   confidence = [ ["{:0.2%}".format(x) for x in v] for v in confidence]
 
-  export_predictions(text,labels,predictions, confidence)
+  export_predictions(text,predictions, confidence)
 
 
   

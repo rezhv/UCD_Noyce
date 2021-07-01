@@ -21,8 +21,7 @@ def load_pol_data():
 def load_csv(path):
     df = pd.read_csv(path, encoding='unicode_escape')
     df['text'] = df['text'].apply(normalize)
-    return df['text'].tolist(), df['class_id'].tolist()
-    
+    return df['text'].tolist()
 
 def load_ideology_data(website, separate_websites = False, test_set = True):
     test_size = 0.1
