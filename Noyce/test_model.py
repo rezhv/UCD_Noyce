@@ -54,7 +54,7 @@ if __name__ == '__main__':
   data={"text": x, "prediction" : predictions,"confidence":confidence}
 
   for index , c in enumerate(list(df.columns)):
-    data['c'] = df.iloc[:,index]
+    data[c] = df.iloc[:,index]
 
   predictions_df = pd.DataFrame(data=data)
   predictions_df.to_csv('predictions.csv')
