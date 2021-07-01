@@ -22,12 +22,12 @@ if __name__ == '__main__':
   y = [0 for _ in range(len(x))]
 
   encodings = tokenizer(x, truncation=True, padding=True,
-                                max_length=args.tokenizationlength,  return_tensors='pt')
+                                max_length=128,  return_tensors='pt')
   ds = Dataset(encodings, y)
   dl = DataLoader(ds, batch_size=32, shuffle=False)
 
 
-  def export_predictions(self, x, predictions,confidence, path = "./predictions.csv"):
+  def export_predictions(x, predictions,confidence, path = "./predictions.csv"):
     predictions_df = pd.DataFrame(data={"text": x, "prediction" : predictions,"confidence":confidence})
     predictions_df.to_csv(path)
 
