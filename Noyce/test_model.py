@@ -13,12 +13,12 @@ if __name__ == '__main__':
 
   parser = argparse.ArgumentParser()
   parser.add_argument("-m", "--modelpath", help="Path to trained model")
-  parser.add_argument("-d", "--dattapath", help="Path to test data")
+  parser.add_argument("-d", "--datapath", help="Path to test data")
 
   args = parser.parse_args()
   model = Model(path = args.modelpath).to(device)
   tokenizer = Tokenizer(path = args.modelpath)
-  x = load_csv(args.modelpath)
+  x = load_csv(args.datapath)
   y = [0 for _ in range(len(x))]
 
   encodings = tokenizer(x, truncation=True, padding=True,
