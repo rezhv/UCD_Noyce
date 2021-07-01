@@ -1,9 +1,10 @@
 import argparse
+import torch
+import pandas as pd
+
 from models import Model
 from noyce_tokenizer import Tokenizer
 from load_data import load_csv
-import torch
-import pandas as pd
 from dataset import Dataset
 from torch.utils.data import DataLoader
 from utils.normalizer import normalize
