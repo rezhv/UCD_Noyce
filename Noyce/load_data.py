@@ -18,6 +18,12 @@ def load_pol_data():
     df_test['text'] = df_test['text'].apply(normalize)
     return df['text'].tolist(), df['class_id'].tolist(), df_test['text'].tolist(), df_test['class_id'].tolist()
 
+def load_csv(path):
+    df = pd.read_csv(path, encoding='unicode_escape')
+    df['text'] = df['text'].apply(normalize)
+    return df['text'].tolist(), df['class_id'].tolist()
+    
+
 def load_ideology_data(website, separate_websites = False, test_set = True):
     test_size = 0.1
     if (website == 'facebook'):
