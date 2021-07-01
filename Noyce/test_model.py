@@ -6,6 +6,7 @@ import torch
 import pandas as pd
 from dataset import Dataset
 from torch.utils.data import DataLoader
+from utils.normalizer import normalize
 
 if __name__ == '__main__':
 
@@ -18,7 +19,10 @@ if __name__ == '__main__':
   args = parser.parse_args()
   model = Model(path = args.modelpath).to(device)
   tokenizer = Tokenizer(path = args.modelpath)
-  x = load_csv(args.datapath)
+  df = pd.read_csv(args.datapath, encoding='unicode_escape')
+  df['text'] = df['text'].apply(normalize)
+  x = df['text'].tolist()
+
   y = [0 for _ in range(len(x))]
 
   encodings = tokenizer(x, truncation=True, padding=True,
@@ -27,9 +31,8 @@ if __name__ == '__main__':
   dl = DataLoader(ds, batch_size=32, shuffle=False)
 
 
-  def export_predictions(x, predictions,confidence, path = "./predictions.csv"):
-    predictions_df = pd.DataFrame(data={"text": x, "prediction" : predictions,"confidence":confidence})
-    predictions_df.to_csv(path)
+  
+
 
   model.eval()
   text = []
@@ -42,9 +45,21 @@ if __name__ == '__main__':
           predictions = predictions + torch.argmax(outputs, axis=1).cpu().numpy().tolist()
           confidence = confidence + torch.nn.functional.softmax(outputs,dim=1).cpu().numpy().tolist()
 
-  confidence = [ ["{:0.2%}".format(x) for x in v] for v in confidence]
 
-  export_predictions(text,predictions, confidence)
+  
+
+  confidence = [ ["{:0.2%}".format(x) for x in v] for v in confidence]
+  
+
+  data={"text": x, "prediction" : predictions,"confidence":confidence}
+
+  for index , c in enumerate(list(df.columns)):
+    data['c'] = df.iloc[:,index]
+
+  predictions_df = pd.DataFrame(data=data)
+  predictions_df.to_csv('predictions.csv')
+
+  
 
 
   
