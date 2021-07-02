@@ -44,7 +44,7 @@ def load_ideology_data(website, separate_websites = False, test_set = True):
 
     elif (website == 'redditcomments_pol_balanced'):
         path = REDDIT_COMMENTS_POL_BALANCED
-        df = pd.read_csv(path, encoding='unicode_escape')
+        df = pd.read_csv(path)
     else:
         df = pd.read_csv(website, encoding='unicode_escape')
 
@@ -120,5 +120,5 @@ def load_data(dset_name='political_text', path = '', test_set = True):
             'Dataset not known. Available Datasets: political_text')
 
 if __name__ == '__main__':
-    print(len(load_data(dset_name = 'ideology_youtube')[1]),len(load_data(dset_name = 'ideology_youtube')[0]),
+    print(len(load_data(dset_name = 'ideology_redditcomments_pol_balanced')[1]),len(load_data(dset_name = 'ideology_youtube')[0]),
     len(load_data(dset_name = 'ideology_youtube')[2]),len(load_data(dset_name = 'ideology_youtube')[3]))
