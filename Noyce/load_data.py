@@ -45,6 +45,7 @@ def load_ideology_data(website, separate_websites = False, test_set = True):
     elif (website == 'redditcomments_pol_balanced'):
         path = REDDIT_COMMENTS_POL_BALANCED
         df = pd.read_csv(path)
+        df = df.sample(frac = 1)
     else:
         df = pd.read_csv(website, encoding='unicode_escape')
 
