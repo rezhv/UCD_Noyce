@@ -52,7 +52,7 @@ def load_ideology_data(website, separate_websites = False, test_set = True):
         df3 = pd.read_csv(REDDIT_COMMENTS, encoding='unicode_escape')
         df = pd.concat([df1,df2,df3])
         df = df.sample(frac = 1)
-        test_size = 0.0075
+        test_size = 0.01
 
 
     elif (website == 'redditcomments_pol_balanced'):
