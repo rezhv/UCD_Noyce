@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 FACEBOOK_POSTS = "./UCD_Noyce/Noyce/data/ideology/facebook.csv"
 YOUTUBE_POSTS = "./UCD_Noyce/Noyce/data/ideology/youtube.csv"
 REDDIT_COMMENTS = "./UCD_Noyce/Noyce/data/ideology/reddit_comments_onesided.csv"
-REDDIT_COMMENTS_POL_BALANCED = "./UCD_Noyce/Noyce/data/ideology/reddit_comments_80_confidence_balanced.csv"
+REDDIT_COMMENTS_POL_BALANCED = "./UCD_Noyce/Noyce/data/ideology/reddit_comments_80_confidence.csv"
 
 def load_pol_data():
 
