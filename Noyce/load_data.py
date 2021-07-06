@@ -29,18 +29,31 @@ def load_ideology_data(website, separate_websites = False, test_set = True):
         path = FACEBOOK_POSTS
         test_size = 0.025
         df = pd.read_csv(path, encoding='unicode_escape')
+
     elif (website == 'youtube'):
         path = YOUTUBE_POSTS
         df = pd.read_csv(path, encoding='unicode_escape')
+
     elif (website == 'redditcomments'):
         path = REDDIT_COMMENTS
         df = pd.read_csv(path, encoding='unicode_escape')
         test_size = 0.01
+
+
     elif (website == 'youtube_facebook'):
         df1 = pd.read_csv(YOUTUBE_POSTS, encoding='unicode_escape')
         df2 = pd.read_csv(FACEBOOK_POSTS, encoding='unicode_escape')
         df = pd.concat([df1,df2])
         test_size = 0.020
+
+    elif (website == 'all'):
+        df1 = pd.read_csv(YOUTUBE_POSTS, encoding='unicode_escape')
+        df2 = pd.read_csv(FACEBOOK_POSTS, encoding='unicode_escape')
+        df3 = pd.read_csv(REDDIT_COMMENTS, encoding='unicode_escape')
+        df = pd.concat([df1,df2,df3])
+        df = df.sample(frac = 1)
+        test_size = 0.0075
+
 
     elif (website == 'redditcomments_pol_balanced'):
         path = REDDIT_COMMENTS_POL_BALANCED
@@ -113,6 +126,8 @@ def load_data(dset_name='political_text', path = '', test_set = True):
         return load_ideology_data('redditcomments_pol_balanced', test_set =test_set)
     elif dset_name == 'ideology_facebook_youtube':
         return load_ideology_data('youtube_facebook', test_set =test_set)
+    elif dset_name == 'ideology_all':
+        return load_ideology_data('all', test_set =test_set)
     elif dset_name == 'ideology_custome':
         return load_ideology_data(path, test_set)
 
