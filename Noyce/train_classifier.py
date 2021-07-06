@@ -15,7 +15,7 @@ if __name__ == '__main__':
   parser.add_argument("-m", "--model", help="Name of the model: bert, xlmr, roberta", default="bert")
   parser.add_argument("-s", "--scheduler", action="store_true", help="Use Learning Rate Scheduler", default=False)
   parser.add_argument("-p", "--output_predictions", action="store_true", help="Output predictions as csv" ,default=False)
-  parser.add_argument("-ac", "--accumulation_steps", help="Gradeient Accumulation Steps" ,default=1)
+  parser.add_argument("-ac", "--accumulation_steps", help="Gradeient Accumulation Steps" ,default=1 , type = int)
 
 
   args = parser.parse_args()
