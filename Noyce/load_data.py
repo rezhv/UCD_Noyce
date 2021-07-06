@@ -51,14 +51,14 @@ def load_ideology_data(website, separate_websites = False, test_set = True):
         df2 = pd.read_csv(FACEBOOK_POSTS, encoding='unicode_escape')
         df3 = pd.read_csv(REDDIT_COMMENTS, encoding='unicode_escape')
         df = pd.concat([df1,df2,df3])
-        df = df.sample(frac = 1)
+        df = df.sample(frac = 1, random_state = 30)
         test_size = 0.01
 
 
     elif (website == 'redditcomments_pol_balanced'):
         path = REDDIT_COMMENTS_POL_BALANCED
         df = pd.read_csv(path)
-        df = df.sample(frac = 1)
+        df = df.sample(frac = 1, random_state = 30)
     else:
         df = pd.read_csv(website, encoding='unicode_escape')
 
