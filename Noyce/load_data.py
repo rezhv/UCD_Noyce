@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 FACEBOOK_POSTS = "./UCD_Noyce/Noyce/data/ideology/facebook.csv"
 YOUTUBE_POSTS = "./UCD_Noyce/Noyce/data/ideology/youtube.csv"
 REDDIT_COMMENTS = "./UCD_Noyce/Noyce/data/ideology/reddit_comments_onesided.csv"
-REDDIT_COMMENTS_POL_BALANCED = "./UCD_Noyce/Noyce/data/ideology/reddit_comments_80_confidence.csv"
+REDDIT_COMMENTS_POL_BALANCED = "./UCD_Noyce/Noyce/data/ideology/reddit_comments_80_confidence_onesided.csv"
 
 def load_pol_data():
 
@@ -59,6 +59,7 @@ def load_ideology_data(website, separate_websites = False, test_set = True):
         path = REDDIT_COMMENTS_POL_BALANCED
         df = pd.read_csv(path)
         df = df.sample(frac = 1, random_state = 30)
+        test_size = 0.02
     else:
         df = pd.read_csv(website, encoding='unicode_escape')
 
