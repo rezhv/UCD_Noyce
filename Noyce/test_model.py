@@ -21,7 +21,6 @@ if __name__ == '__main__':
   model = Model(path = args.modelpath).to(device)
   
   tokenizer = Tokenizer(path = args.modelpath)
-  print(tokenizer)
   df = pd.read_csv(args.datapath)
   
   df['text'] = df['text'].apply(normalize)
@@ -42,10 +41,8 @@ if __name__ == '__main__':
   with torch.no_grad():
       for batch in dl:
         outputs = model(batch['input_ids'].to(device)).logits
-        print(batch, outputs)
         text = text + tokenizer.batch_decode(batch['input_ids'],skip_special_tokens=True)
         predictions = predictions + torch.argmax(outputs, axis=1).cpu().numpy().tolist()
-        print("prediction: ", torch.argmax(outputs, axis=1).cpu().numpy().tolist())
         onfidence = confidence + torch.nn.functional.softmax(outputs,dim=1).cpu().numpy().tolist()
 
 
