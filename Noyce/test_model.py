@@ -22,8 +22,10 @@ if __name__ == '__main__':
   print(args.modelpath)
   tokenizer = Tokenizer(path = args.modelpath)
   df = pd.read_csv(args.datapath)
+  
   df['text'] = df['text'].apply(normalize)
   x = df['text'].tolist()
+  print(x[0:50])
 
   y = [0 for _ in range(len(x))]
 
