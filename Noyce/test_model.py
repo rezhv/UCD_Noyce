@@ -30,8 +30,6 @@ if __name__ == '__main__':
 
   encodings = tokenizer(x, truncation=True, padding=True,
                                 max_length=128,  return_tensors='pt')
-
-  print(encodings)
   ds = Dataset(encodings, y)
   dl = DataLoader(ds, batch_size=32, shuffle=False)
 
@@ -43,6 +41,7 @@ if __name__ == '__main__':
   with torch.no_grad():
       for batch in dl:
         outputs = model(batch['input_ids'].to(device)).logits
+        print(batch, outputs)
         text = text + tokenizer.batch_decode(batch['input_ids'],skip_special_tokens=True)
         predictions = predictions + torch.argmax(outputs, axis=1).cpu().numpy().tolist()
         print("prediction: ", torch.argmax(outputs, axis=1).cpu().numpy().tolist())
