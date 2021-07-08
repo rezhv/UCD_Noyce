@@ -59,7 +59,7 @@ def load_ideology_data(website, separate_websites = False, test_set = True):
         path = REDDIT_COMMENTS_POL
         df = pd.read_csv(path)
         df = df.sample(frac = 1, random_state = 30)
-        test_size = 0.02
+        test_size = 0.05
     else:
         df = pd.read_csv(website, encoding='unicode_escape')
 
