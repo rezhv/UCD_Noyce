@@ -44,6 +44,7 @@ if __name__ == '__main__':
           outputs = model(batch['input_ids'].to(device)).logits
           text = text + tokenizer.batch_decode(batch['input_ids'],skip_special_tokens=True)
           predictions = predictions + torch.argmax(outputs, axis=1).cpu().numpy().tolist()
+          print("prediction: ", torch.argmax(outputs, axis=1).cpu().numpy().tolist())
           confidence = confidence + torch.nn.functional.softmax(outputs,dim=1).cpu().numpy().tolist()
 
 
@@ -55,6 +56,7 @@ if __name__ == '__main__':
   data={"text": x, "prediction" : predictions,"confidence":confidence}
 
   for index , c in enumerate(list(df.columns)):
+    print(c)
     data[c] = df.iloc[:,index]
 
   predictions_df = pd.DataFrame(data=data)
