@@ -19,6 +19,7 @@ if __name__ == '__main__':
 
   args = parser.parse_args()
   model = Model(path = args.modelpath).to(device)
+  print(args.modelpath)
   tokenizer = Tokenizer(path = args.modelpath)
   df = pd.read_csv(args.datapath)
   df['text'] = df['text'].apply(normalize)
