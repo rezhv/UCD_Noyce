@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 FACEBOOK_POSTS = "./UCD_Noyce/Noyce/data/ideology/facebook.csv"
 YOUTUBE_POSTS = "./UCD_Noyce/Noyce/data/ideology/youtube.csv"
 REDDIT_COMMENTS = "./UCD_Noyce/Noyce/data/ideology/reddit_comments_onesided.csv"
-REDDIT_COMMENTS_POL_BALANCED = "./UCD_Noyce/Noyce/data/ideology/reddit_comments_80_confidence_onesided.csv"
+REDDIT_COMMENTS_POL = "./UCD_Noyce/Noyce/data/ideology/reddit_political_comments_85.csv"
 
 def load_pol_data():
 
@@ -55,8 +55,8 @@ def load_ideology_data(website, separate_websites = False, test_set = True):
         test_size = 0.01
 
 
-    elif (website == 'redditcomments_pol_balanced'):
-        path = REDDIT_COMMENTS_POL_BALANCED
+    elif (website == 'redditcomments_pol'):
+        path = REDDIT_COMMENTS_POL
         df = pd.read_csv(path)
         df = df.sample(frac = 1, random_state = 30)
         test_size = 0.02
@@ -123,8 +123,8 @@ def load_data(dset_name='political_text', path = '', test_set = True):
         return load_ideology_data('youtube', test_set =test_set)
     elif dset_name == 'ideology_redditcomments':
         return load_ideology_data('redditcomments', test_set =test_set)
-    elif dset_name == 'ideology_redditcomments_pol_balanced':
-        return load_ideology_data('redditcomments_pol_balanced', test_set =test_set)
+    elif dset_name == 'ideology_redditcomments_pol':
+        return load_ideology_data('redditcomments_pol', test_set =test_set)
     elif dset_name == 'ideology_facebook_youtube':
         return load_ideology_data('youtube_facebook', test_set =test_set)
     elif dset_name == 'ideology_all':
