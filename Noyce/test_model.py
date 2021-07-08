@@ -25,17 +25,15 @@ if __name__ == '__main__':
   
   df['text'] = df['text'].apply(normalize)
   x = df['text'].tolist()
-  print(x[0:50])
 
   y = [0 for _ in range(len(x))]
 
   encodings = tokenizer(x, truncation=True, padding=True,
                                 max_length=128,  return_tensors='pt')
+
+  print(encodings)
   ds = Dataset(encodings, y)
   dl = DataLoader(ds, batch_size=32, shuffle=False)
-
-
-  
 
 
   model.eval()
