@@ -19,10 +19,8 @@ if __name__ == '__main__':
 
   args = parser.parse_args()
   model = Model(path = args.modelpath).to(device)
-  
   tokenizer = Tokenizer(path = args.modelpath)
   df = pd.read_csv(args.datapath)
-  
   df['text'] = df['text'].apply(normalize)
   x = df['text'].tolist()
 
@@ -34,16 +32,19 @@ if __name__ == '__main__':
   dl = DataLoader(ds, batch_size=32, shuffle=False)
 
 
+  
+
+
   model.eval()
   text = []
   predictions = []
   confidence = []
   with torch.no_grad():
       for batch in dl:
-        outputs = model(batch['input_ids'].to(device)).logits
-        text = text + tokenizer.batch_decode(batch['input_ids'],skip_special_tokens=True)
-        predictions = predictions + torch.argmax(outputs, axis=1).cpu().numpy().tolist()
-        onfidence = confidence + torch.nn.functional.softmax(outputs,dim=1).cpu().numpy().tolist()
+          outputs = model(batch['input_ids'].to(device)).logits
+          text = text + tokenizer.batch_decode(batch['input_ids'],skip_special_tokens=True)
+          predictions = predictions + torch.argmax(outputs, axis=1).cpu().numpy().tolist()
+          confidence = confidence + torch.nn.functional.softmax(outputs,dim=1).cpu().numpy().tolist()
 
 
   
@@ -54,7 +55,6 @@ if __name__ == '__main__':
   data={"text": x, "prediction" : predictions,"confidence":confidence}
 
   for index , c in enumerate(list(df.columns)):
-    print(c)
     data[c] = df.iloc[:,index]
 
   predictions_df = pd.DataFrame(data=data)
